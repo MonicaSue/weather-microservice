@@ -61,7 +61,7 @@ app.get("/weather", async (req, res) => {
         summary: day.weather[0]?.main || "No summary",
         temp_min: day.temp.min,
         temp_max: day.temp.max,
-        feels_like: day.feels_like.day,
+        feels_like: day.feels_like,
         humidity: day.humidity,
         wind_speed: day.wind_speed,
         uvi: day.uvi,
