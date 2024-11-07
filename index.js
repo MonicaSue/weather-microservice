@@ -10,16 +10,6 @@ const PORT = process.env.PORT || 3000;
 // Middleware to parse JSON requests
 app.use(express.json());
 
-// Middleware to validate the API key
-app.use((req, res, next) => {
-  const clientApiKey = req.header("api-key");
-  console.log(clientApiKey);
-  if (clientApiKey !== process.env.VALID_API_KEY_1) {
-    return res.status(403).json({ error: "Forbidden: Invalid API Key" });
-  }
-  next();
-});
-
 // Basic route
 app.get("/", (req, res) => {
   res.send("Welcome to the Weather Microservice!");
