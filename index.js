@@ -10,6 +10,16 @@ const PORT = process.env.PORT || 3000;
 // Middleware to parse JSON requests
 app.use(express.json());
 
+// Middleware to validate the API key
+app.use((req, res, next) => {
+  const clientApiKey = req.header("api-key");
+  console.log(clientApiKey);
+  if (clientApiKey !== process.env.VALID_API_KEY_1) {
+    return res.status(403).json({ error: "Forbidden: Invalid API Key" });
+  }
+  next();
+});
+
 // Basic route
 app.get("/", (req, res) => {
   res.send("Welcome to the Weather Microservice!");
@@ -24,7 +34,7 @@ const getDateAndDayFromTimestamp = (timestamp) => {
   const dayName = daysOfWeek[date.getDay()];
   // Format the date in a human-readable format
   const humanReadableDate = date.toLocaleString().split(",")[0];
-  return [humanReadableDate, dayName]
+  return [humanReadableDate, dayName];
 };
 
 // Example route to fetch weather data
@@ -52,7 +62,7 @@ app.get("/weather", async (req, res) => {
     // Step 3: Add each of the next 7 days from daily array to broadcast array
     for (let i = 0; i < 7; i++) {
       const day = weatherData.daily[i];
-      const[date, dayOfTheWeek] = getDateAndDayFromTimestamp(day.dt);
+      const [date, dayOfTheWeek] = getDateAndDayFromTimestamp(day.dt);
 
       cleanedData.broadcast.push({
         dt: day.dt,
