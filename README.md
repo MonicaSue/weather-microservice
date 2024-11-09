@@ -24,6 +24,7 @@ fetch(url)
   .then(response => response.json())
   .then(data => console.log("Weather data:", data))
   .catch(error => console.error("Error fetching data:", error));
+```
 ## 2. Received Data Example
 
 The following JSON structure represents an example of the data returned by the microservice:
