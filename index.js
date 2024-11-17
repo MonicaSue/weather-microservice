@@ -7,6 +7,7 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 // Middleware to parse JSON requests
 app.use(express.json());
 
@@ -29,6 +30,7 @@ app.get("/weather", async (req, res) => {
   const { latitude, longitude, units = "imperial" } = req.query;
   const apiKey = process.env.OPENWEATHER_API_KEY;
   const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&appid=${apiKey}&units=${units}`;
+
 
   console.log("FETCH REQUEST RECEIVED for coordinates:", latitude, longitude);
 
